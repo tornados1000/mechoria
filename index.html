@@ -14,6 +14,7 @@
       background: #000;
     }
 
+    /* Background setup */
     .background {
       position: fixed;
       top: 0;
@@ -35,6 +36,27 @@
       z-index: 2;
     }
 
+    /* Loading gear animation */
+    .loader {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100px;
+      height: 100px;
+      border: 6px solid #222;
+      border-top: 6px solid #00bfff;
+      border-radius: 50%;
+      animation: spin 2s linear infinite;
+      z-index: 4;
+    }
+
+    @keyframes spin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* Coming soon text */
     .coming-soon {
       position: absolute;
       top: 50%;
@@ -45,7 +67,9 @@
       text-transform: uppercase;
       letter-spacing: 4px;
       text-align: center;
-      animation: glow 3s ease-in-out infinite, fadeInText 4s ease forwards;
+      animation: glow 3s ease-in-out infinite, fadeInText 2s ease forwards;
+      animation-delay: 2.5s; /* Wait for loader */
+      opacity: 0;
       z-index: 3;
       text-shadow:
         0 0 10px #00bfff,
@@ -54,6 +78,7 @@
         0 0 40px #00bfff;
     }
 
+    /* Footer */
     .footer {
       position: absolute;
       bottom: 20px;
@@ -66,6 +91,7 @@
       z-index: 3;
     }
 
+    /* Animations */
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
@@ -93,6 +119,7 @@
       }
     }
 
+    /* Responsive */
     @media (max-width: 768px) {
       .coming-soon {
         font-size: 2rem;
@@ -108,8 +135,20 @@
   <div class="background"></div>
   <div class="overlay"></div>
 
-  <div class="coming-soon">COMING SOON</div>
+  <!-- Loading gear -->
+  <div class="loader" id="loader"></div>
+
+  <!-- Coming soon text -->
+  <div class="coming-soon" id="comingSoon">COMING SOON</div>
 
   <div class="footer">© 2025 Mechoria. All rights reserved.</div>
+
+  <script>
+    // Hide the loader after 2.5 seconds
+    setTimeout(() => {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("comingSoon").style.opacity = "1";
+    }, 2500);
+  </script>
 </body>
 </html>
